@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Table</title>
+    <style>
+      *{
+        color:white
+      }
+      
+      .show {
+        margin:5px;
+      
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .show p {
+        background-color: green;
+        border: 1px solid green;padding:5px;border-radius: 5px;
+      }
+      .head{background-color:red;padding:5px;border-radius: 5px;}
+     
+      @media all and (min-width: 300px) and (max-width: 760px) {
+        .show {
+          flex-direction: column;
+        }
+        .show p {
+          display: none;
+        }
+       
+      }
+    </style>
+  </head>
+  <body>
+    <div id="parent">
+
+    </div>
+   
+</html>
+<script>
+  let parent = document.getElementById("parent");
+  let arr = [
+    {
+      id: 1,
+      name: "head1",
+      t1: "1 item 1 row",
+      t2: "2 Item 1 row ",
+      t3: "3 Item 1 row",
+      t4: "4 Item 1 row"
+    },
+    {
+      id: 2,
+      name: "head2",
+      t1: "1 item 2 row",
+      t2: "2 Item 2 row",
+      t3: "3 Item 2 row",
+      t4: "4 Item 2 row"
+    },
+  ];
+
+   window.addEventListener("blur",loose)
+
+  function loose(){
+
+    let items = document.querySelectorAll(".show p");
+      items.forEach((item) => {
+        item.style.display = "none";
+      });
+    
+  }
+    
+
+  window.addEventListener("resize",()=>{
+    if (window.innerWidth > 760) {
+      
+      let items = document.querySelectorAll(".show p");
+      items.forEach((item) => {
+        item.style.display = "block";
+      });
+     
+    }else{
+       
+      let items = document.querySelectorAll(".show p");
+      items.forEach((item) => {
+        item.style.display = "none";
+      });
+    }
+  })
+ 
+  arr.forEach((el) => {
+    let main=document.createElement("div")
+    main.setAttribute("class","show")
+
+    
+    let head = document.createElement("div")
+    head.setAttribute("class","head");
+
+   head.onclick=()=>{
+
+    if (window.innerWidth < 760) {
+     
+        let items = document.querySelectorAll(".show p");
+        items.forEach((item) => {
+          item.style.display = "none";
+        });
+        let firstRowItems = main.querySelectorAll("p");
+        firstRowItems.forEach((item) => {
+          item.style.display = "block";
+        });
+      }
+   }
+
+    head.innerText = el.name;
+
+    let t1 = document.createElement("p");
+    t1.innerText = el.t1;
+    let t2 = document.createElement("p");
+    t2.innerText = el.t2;
+    let t3 = document.createElement("p");
+    t3.innerText = el.t3;
+    let t4 = document.createElement("p");
+    t4.innerText = el.t4;
+
+    main.append(head,t1,t2,t3,t4)
+
+    parent.append(main)
+
+  });
+</script>
